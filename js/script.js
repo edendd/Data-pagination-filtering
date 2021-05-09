@@ -1,9 +1,4 @@
 /*
-Treehouse Techdegree:
-FSJS Project 2 - Data Pagination and Filtering
-*/
-
-/*
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
@@ -45,30 +40,29 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 function addPagination(list) {
-   const numOfPages = Math.ceil(list.length / 9);
-   const linkList = document.querySelector(".link-list");
+  const numOfPages = Math.ceil(list.length / 9);
+  const linkList = document.querySelector(".link-list");
 
-   // removes any previously displayed pagination
-   linkList.innerHTML = "";
-   
-   for (let i = 1; i <= numOfPages; i++) {
-      const button = `<li><button type="button">${i}</button</li>`;
+  // removes any previously displayed pagination
+  linkList.innerHTML = "";
+  // loop over the number of pages needed
+  for (let i = 1; i <= numOfPages; i++) {
+    const button = `<li><button type="button">${i}</button</li>`;
 
-      linkList.insertAdjacentHTML("beforeend", button);
-   }
+    linkList.insertAdjacentHTML("beforeend", button);
+  }
 
-   document.querySelector("li > button").className = "active";
+  // create an event listener on the `link-list` element
+  document.querySelector("li > button").className = "active";
 
-   linkList.addEventListener("click", (e) => {
-      if (e.target.tagName === "BUTTON") {
-         document.querySelector(".active").className = "";
-         e.target.className = "active";
+  linkList.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") {
+      document.querySelector(".active").className = "";
+      e.target.className = "active";
 
-         showPage(list, e.target.textContent);
-      }
-   });
+      showPage(list, e.target.textContent);
+    }
+  });
 }
 
 addPagination(data);
-
-// Call functions
