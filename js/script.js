@@ -65,4 +65,53 @@ function addPagination(list) {
   });
 }
 
+
+
+
+
+function addSearchBar() {
+  const header = document.querySelector(".header");
+
+  const searchBar = `
+     <label for="search" class="student-search">
+        <input id="search" placeholder="Search by name...">
+        <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+     </label>
+  `;
+
+  header.insertAdjacentHTML("beforeend", searchBar);
+}
+
+showPage(data, 1);
+addPagination(data);
+addSearchBar();
+
+// Click event listener for search functionality
+document.getElementsByTagName("button")[0].addEventListener("click", () => {
+  const searchValue = document.querySelector("#search").value;
+  const searchData = [];
+  
+  for (let i = 0; i < data.length; i++) {
+     const name = data[i].name;
+     
+     if (name.first.toLowerCase().includes(searchValue) || name.last.toLowerCase().includes(searchValue)) {
+        searchData.push(data[i]);
+     }
+  }
+
+  if (searchData.length === 0) {
+     const studentList = document.querySelector(".student-list");
+     const message = `<p>Sorry, there are no matches for that search.</p>`;
+
+     // removes student list and pagination
+     studentList.innerHTML = "";
+     document.querySelector(".link-list").innerHTML = "";
+
+     studentList.insertAdjacentHTML("beforeend", message);
+  } else {
+     showPage(searchData, 1);
+     addPagination(searchData);
+  }
+});
+
 addPagination(data);
